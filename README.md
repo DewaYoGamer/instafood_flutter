@@ -1,4 +1,4 @@
-# flutter_application_1
+# INSTAFOOD
 
 A new Flutter project.
 

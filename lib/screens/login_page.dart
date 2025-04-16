@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/notifiers.dart';
 import 'forgot_password_page.dart';
 import 'home_page.dart';
 import 'register_page.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
         .hasMatch(_emailController.text)) {
       _showError('Please enter a valid email');
       return;
@@ -69,147 +70,170 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('LOGIN'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 600,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 24, right: 24),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                SvgPicture.asset(
-                  './lib/assets/logo.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Colors.black,
-                    BlendMode.srcIn,
-                  ),
-                  width: 200,
-                  height: 200,
-                ),
-
-                const Padding(padding: EdgeInsets.only(top: 24)),
-
-                // Email TextField
-                TextField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+    return ValueListenableBuilder(
+      valueListenable: selectedThemeNotifier, 
+      builder: (context, value, child){
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: const Text('Login', 
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                )),
+                centerTitle: true,
+                pinned: false,
+                floating: false,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      selectedThemeNotifier.value = !selectedThemeNotifier.value;
+                    },
+                    icon: Icon(value ? Icons.dark_mode : Icons.light_mode,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
-                    prefixIcon: Icon(Icons.email),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 24)),
-
-                // Password TextField
-                TextField(
-                  controller: _passwordController,
-                  obscureText: _obscurePassword,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(_obscurePassword
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 24)),
-
-                ElevatedButton(
-                  onPressed: _validateAndLogin,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    backgroundColor: Colors.green[800],
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text('Login'),
-                ),
-
-                const Padding(padding: EdgeInsets.only(top: 16)),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Don\'t have an account? ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterPage(),
+                  )
+                ],
+              ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Container(
+                    width: 600,
+                    padding: const EdgeInsets.only(left: 24, right: 24, top: 48, bottom: 48),
+                    child: Column(
+                      spacing: 16,
+                      children: [
+                        SvgPicture.asset(
+                          './lib/assets/logo.svg',
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onSurface,
+                            BlendMode.srcIn,
                           ),
-                        );
-                      },
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
-                        minimumSize: WidgetStateProperty.all(const Size(0, 0)),
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                      ),
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          width: 200,
+                          height: 200,
                         ),
-                      ),
+                        const Padding(padding: EdgeInsets.only(top: 8)),
+                        TextField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                            labelText: 'Email',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                            ),
+                            prefixIcon: Icon(Icons.email),
+                          ),
+                        ),
+                        TextField(
+                          controller: _passwordController,
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                            ),
+                            prefixIcon: const Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(_obscurePassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 4)),
+                        ElevatedButton(
+                          onPressed: _validateAndLogin,
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(50),
+                            backgroundColor: Colors.green[800],
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text('Login'),
+                        ),
+                        Column(
+                          children: [
+                            Wrap(
+                              alignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                Text(
+                                  'Don\'t have an account? ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const RegisterPage(),
+                                      ),
+                                    );
+                                  },
+                                  style: ButtonStyle(
+                                    padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                    minimumSize:
+                                        WidgetStateProperty.all(const Size(0, 0)),
+                                    overlayColor:
+                                        WidgetStateProperty.all(Colors.transparent),
+                                  ),
+                                  child: const Text(
+                                    'Register',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ForgotPasswordPage(),
+                                  ),
+                                );
+                              },
+                              style: ButtonStyle(
+                                padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                minimumSize:
+                                    WidgetStateProperty.all(const Size(0, 0)),
+                                overlayColor:
+                                    WidgetStateProperty.all(Colors.transparent),
+                              ),
+                              child: const Text(
+                                'Forgot Password',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ForgotPasswordPage(),
-                      ),
-                    );
-                  },
-                  style: ButtonStyle(
-                    padding: WidgetStateProperty.all(EdgeInsets.zero),
-                    minimumSize: WidgetStateProperty.all(const Size(0, 0)),
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                  ),
-                  child: const Text(
-                    'Forgot Password',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }
