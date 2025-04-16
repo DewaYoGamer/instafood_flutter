@@ -81,6 +81,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     TextField(
                       controller: _emailController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: 'Email',
                         border: OutlineInputBorder(

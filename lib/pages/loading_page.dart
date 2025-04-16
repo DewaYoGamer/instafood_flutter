@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
-import 'login_page.dart';
+import 'auth/login_page.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});

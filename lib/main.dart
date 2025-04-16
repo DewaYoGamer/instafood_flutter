@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './data/notifiers.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'screens/loading_page.dart';
+import 'pages/loading_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             textTheme: GoogleFonts.poppinsTextTheme(),
             colorScheme: ColorScheme.light(
               primary: Colors.green.shade700,
-              secondary: Colors.white,
+              secondary: Colors.grey.shade200,
               surface: Colors.white,
               error: Colors.red,
               onPrimary: Colors.white,
@@ -42,13 +42,13 @@ class MyApp extends StatelessWidget {
             textTheme: GoogleFonts.poppinsTextTheme(),
             colorScheme: ColorScheme.dark(
               primary: Colors.green.shade700,
-              secondary: Colors.white,
+              secondary: Colors.grey.shade800,
               surface: Colors.grey.shade900,
               error: Colors.red,
-              onPrimary: Colors.white,
-              onSecondary: Colors.white,
-              onSurface: Colors.white,
-              onError: Colors.white,
+              onPrimary: Colors.grey.shade100,
+              onSecondary: Colors.grey.shade100,
+              onSurface: Colors.grey.shade100,
+              onError: Colors.grey.shade100,
               brightness: Brightness.dark,
             )
           ),

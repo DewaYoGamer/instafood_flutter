@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../data/notifiers.dart';
+import '../../data/notifiers.dart';
 import 'forgot_password_page.dart';
-import 'home_page.dart';
+import '../home/home_page.dart';
 import 'register_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -118,6 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                         TextField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: const InputDecoration(
                             labelText: 'Email',
                             border: OutlineInputBorder(
@@ -129,6 +132,9 @@ class _LoginPageState extends State<LoginPage> {
                         TextField(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
                             labelText: 'Password',
                             border: const OutlineInputBorder(

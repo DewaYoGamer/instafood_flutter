@@ -158,6 +158,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     const Padding(padding: EdgeInsets.only(top: 8)),
                     TextField(
                       controller: _nameController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: 'Full Name',
                         border: OutlineInputBorder(
@@ -168,6 +171,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextField(
                       controller: _emailController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
                         labelText: 'Email',
@@ -179,6 +185,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextField(
                       controller: _phoneController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
                         labelText: 'Phone Number',
@@ -190,6 +199,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextFormField(
                       controller: _dateController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       readOnly: true,
                       onTap: _showDatePicker,
                       decoration: const InputDecoration(
@@ -203,6 +215,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextField(
                       controller: _passwordController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         labelText: 'Password',
@@ -224,6 +239,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextField(
                       controller: _confirmPasswordController,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
